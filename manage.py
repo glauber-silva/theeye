@@ -15,9 +15,7 @@ if __name__ == "__main__":
     manager.run()
 
 
-# TODO: Create database
-# TODO: Create Models (Session, Event, Errors)
 # TODO: Create endpoints
 # TODO: Add Schema validators
 # TODO: Create tests
-# TODO: Improve post event resource
+# TODO: Improve post event resource with Task
