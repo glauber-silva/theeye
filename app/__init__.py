@@ -4,13 +4,12 @@ from flask import Flask
 from flask_migrate import Migrate
 
 from app.api import api_bp
-from flask_sqlalchemy import SQLAlchemy
 from app.api.health.viewer import ns as health
+from app.api.event.viewer import ns as event
 from app.config import DevelopmentConfig, TestingConfig, ProductionConfig
 from flask_cors import CORS
+from app.databases import db
 
-
-db = SQLAlchemy(session_options={"autoflush": False})
 migrate = Migrate()
 
 
