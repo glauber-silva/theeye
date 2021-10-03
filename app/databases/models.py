@@ -28,7 +28,7 @@ class Error(BaseModel):
 class Event(BaseModel):
     __tablename__ = "events"
 
-    session = db.Column(db.ForeignKey("sessions.id", ondelete="CASCADE"))
+    session_id = db.Column(UUID(as_uuid=True), db.ForeignKey("sessions.id", ondelete="CASCADE"), nullable=False)
     category = db.Column(db.String(50))
     name = db.Column(db.String(100))
     data = db.Column(db.JSON)
