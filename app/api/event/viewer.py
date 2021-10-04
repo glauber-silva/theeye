@@ -30,5 +30,7 @@ class EventsApi(Resource):
             logging.exception(message)
             db.session.rollback()
             response = make_response(jsonify({"message": message}), HTTPStatus.BAD_REQUEST)
+        finally:
+            db.session.close()
 
         return response
