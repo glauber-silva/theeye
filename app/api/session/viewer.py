@@ -22,7 +22,7 @@ class SessionApi(Resource):
             db.session.add(session)
             db.session.commit()
             logging.info("Session created")
-            response = make_response(jsonify({"session_id": session.id}), HTTPStatus.OK)
+            response = make_response(jsonify({"session_id": session.id}), HTTPStatus.CREATED)
         except Exception as e:
             message = f"Problems generating session: {e}"
             logging.exception(message)
