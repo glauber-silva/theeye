@@ -1,6 +1,7 @@
 # THE EYE
-A service api that will collect those events from some applications
-The objective is use these data to analyze user behavior
+A service api that will collect those events from some applications. 
+
+The objective is use these data to analyze user behavior.
 
 ## WEBAPI with PYTHON
 In this API was used: 
