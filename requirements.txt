@@ -10,6 +10,7 @@ click-plugins==1.1.1
 click-repl==0.2.0
 Flask==1.1.4
 Flask-Cors==3.0.10
+flask-marshmallow==0.14.0
 Flask-Migrate==2.5.2
 flask-restx==0.5.1
 Flask-Script==2.0.6
@@ -22,6 +23,7 @@ jsonschema==4.0.1
 kombu==5.1.0
 Mako==1.1.5
 MarkupSafe==2.0.1
+marshmallow==3.13.0
 prompt-toolkit==3.0.20
 psycopg2-binary==2.9.1
 pyrsistent==0.18.0
