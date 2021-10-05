@@ -1,11 +1,9 @@
 import logging
-from datetime  import datetime
+from datetime import datetime
 
 from marshmallow import Schema, fields, validates_schema, post_load, validate, ValidationError
 
 from app.databases.models import Event, Session
-
-logger = logging.getLogger(__name__)
 
 
 class EventSchema(Schema):
