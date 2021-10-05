@@ -4,9 +4,10 @@ from flask import make_response, jsonify, request
 from flask_restx import Namespace, Resource
 from http import HTTPStatus
 
-from app.databases import db
-
+from app.consumers import celery
 from app.databases.models import Event
+
+logger = logging.getLogger(__name__)
 
 ns = Namespace("event", description="Manage Events data")
 
@@ -21,16 +22,10 @@ class EventsApi(Resource):
     def post(self):
         body = request.json
         try:
-            event = Event(**body)
-            db.session.add(event)
-            db.session.commit()
-            response = make_response(jsonify({"message": "Created"}), HTTPStatus.CREATED)
+            task = celery.send_task("tasks.add_event", args=[body], kwargs={})
+            response = make_response(jsonify({"message": "Event will be validated"}), HTTPStatus.ACCEPTED)
         except Exception as e:
-            message = f"Problems saving Event with session_id: {body['session_id']} and data: {body} | {e}"
-            logging.exception(message)
-            db.session.rollback()
-            response = make_response(jsonify({"message": message}), HTTPStatus.BAD_REQUEST)
-        finally:
-            db.session.close()
+            response = make_response(jsonify({"message": f"Problems inserting task to validate event {str(task)} {e}"}),
+                                     HTTPStatus.BAD_REQUEST)
 
         return response
