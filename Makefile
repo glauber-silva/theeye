@@ -8,19 +8,11 @@ clean:
 build:
 	docker-compose build --no-cache
 
-up:
+start:
 	docker-compose up -d
 
-
-about:
-	docker-compose run --rm web python manage.py about
-
-
-db_init:
-	docker-compose run --rm web python manage.py db init
-
-migrate:
-	docker-compose run --rm web python manage.py db migrate
+stop:
+	docker-compose stop
 
 db_upgrade:
 	docker-compose run --rm web python manage.py db upgrade head

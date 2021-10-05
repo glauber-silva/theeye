@@ -1,5 +1,6 @@
 import os
 
+from app.consumers import celery
 from flask import Flask
 from flask_migrate import Migrate
 
@@ -44,3 +45,4 @@ def __configure_extensions(app: Flask):
     from app.databases import models
     _module_dir = os.path.dirname(os.path.abspath(__file__))
     migrate.init_app(app=app, db=db, directory=os.path.join(_module_dir, '..', 'migrations'))
+    celery.conf.update(app.config)

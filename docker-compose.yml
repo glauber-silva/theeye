@@ -6,11 +6,8 @@ services:
     hostname: theeye
     build:
       context: .
-    environment:
-      - FLASK_APP=$FLASK_APP
-      - FLASK_ENV=$FLASK_ENV
-      - SQLALCHEMY_DATABASE_URI=$SQLALCHEMY_DATABASE_URI
-      - SECRET_KEY=$SECRET_KEY
+    env_file:
+      - .env
     volumes:
       - .:/app
     ports:
@@ -18,7 +15,31 @@ services:
     depends_on:
       - db
     networks:
-    - theeye
+      - theeye
+
+  worker:
+    restart: always
+    container_name: theeye_worker
+    hostname: theeye_worker
+    build:
+      context: .
+    command: celery -A app.run_celery worker -l debug -E
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+      - web
+    networks:
+      - theeye
+
+  redis:
+    image: redis:alpine
+    networks:
+      - theeye
+
   db:
     image: postgres:latest
     container_name: theeye_db
@@ -34,7 +55,6 @@ services:
       - "5432:5432"
     networks:
       - theeye
-
 
 networks:
   theeye:
