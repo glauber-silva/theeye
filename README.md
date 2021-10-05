@@ -32,7 +32,7 @@ $ cd theeye
 ```
 4 - Configure env file
 ```
-$ mv contrib/.envfile .env
+$ mv contrib/.env.config .env
 ```
 5 - Build the project
 ```
@@ -44,7 +44,7 @@ $ make db_upgrade
 ```
 7 - Run services
 ```
-$ make up
+$ make start
 ```
 
 ### Seeds
