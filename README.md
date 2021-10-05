@@ -52,7 +52,7 @@ $ make up
 - There is not seed for run manually. Everything will run during the build 
 
 
-### Development
+### About the Project
 
 This project was built thinking about three main entities:
 - Event: It will handle event data associated to a session
@@ -60,5 +60,8 @@ This project was built thinking about three main entities:
 - Error: It will store data related with failed events validations
 
 
+Before adding the Event it is necessary to generate a session UUID on the session endpoint. It should be used in the session_id attribute of the Event payload.
 
+Events are not processed in real time. For this, when the inclusion of an event is requested, a message in the response is sent informing that the information will be validated. Behind the scenes a task is added to the broker. For this, celery and redis are used.
 
+There is a worker that will process these tasks and do the validations. In case of success the event is included. In case of failure it will be included as Error.
