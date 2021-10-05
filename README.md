@@ -11,7 +11,7 @@ In this API was used:
 - Redis as queue broker,
 - Celery to manage tasks,
 - Marshmallow as serializer,
-- Docker to start the diferents services
+- Docker to virtualization service
 
 
 ### API Docs
