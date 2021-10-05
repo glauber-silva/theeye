@@ -3,11 +3,11 @@ import time
 from logging import getLogger
 
 from marshmallow import ValidationError
-from sqlalchemy.exc import NoResultFound
 
 from app.api.event.schema import EventSchema
 from app.consumers import celery
 from app.databases import db
+from app.databases.models import Error
 
 logger = getLogger(__name__)
 
@@ -31,13 +31,13 @@ def add_event(data):
         event = EventSchema().load(data)
         db.session.add(event)
         db.session.commit()
-        logger.info("Event data validated")
-        logger.info(f"Event : {data}")
+        logger.info(f"Event data validated: {data}")
     except ValidationError as e:
-        logger.error(f"Problems validating Event Data: {e.messages}")
-        db.session.rollback()
-    except NoResultFound as e:
-        logger.error(f"Session {data['session_id']} not found in session table")
-        db.session.rollback()
+        message = f"Problems validating Event Data: {e.messages}"
+        logger.error(message)
+        error = Error(data=data, message=message)
+        db.session.add(error)
+        db.session.commit()
     finally:
+        db.session.rollback()
         db.session.close()
