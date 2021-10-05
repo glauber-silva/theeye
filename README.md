@@ -16,7 +16,7 @@ In this API was used:
 
 ### API Docs
 
-- JSON file at docs/farmers_market.postman_collection.json
+- JSON file at contrib/theeye.postman_collection.json
 - Also It is possible to see a swagger doc in `http://localhost:5000/api/docs`
 
 ### Running the services
@@ -32,7 +32,7 @@ $ cd theeye
 ```
 4 - Configure env file
 ```
-$ mv .envfile .env
+$ mv contrib/.envfile .env
 ```
 5 - Build the project
 ```
